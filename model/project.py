@@ -14,7 +14,7 @@ class Project:
         return self.name == other.name and self.status == other.status and self.view_status == other.view_status \
                and self.description == other.description
 
-    def name(self):
-        return self.name
+    def __gt__(self, other):
+        return self.name > other.name
 
 

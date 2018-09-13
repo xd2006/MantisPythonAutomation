@@ -60,3 +60,22 @@ class ProjectsHelper(GeneralHelper):
         except:
             # redirect was already performed
             pass
+
+    def remove_project(self, project):
+        self.navigate_to_manage_projects()
+        self.click_project(project)
+        self.click_delete_project()
+        self.confirm_deletion()
+
+    def click_project(self, project):
+        wd = self.app.wd
+        wd.find_element_by_xpath("//a[.='{}']".format(project.name)).click()
+
+    def click_delete_project(self):
+        wd = self.app.wd
+        wd.find_element_by_css_selector("input[value = 'Delete Project']").click()
+
+    def confirm_deletion(self):
+        self. click_delete_project()
+
+

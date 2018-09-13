@@ -21,4 +21,4 @@ def test_add_project(app: Application):
 
     old_list.append(project)
 
-    assert sorted(old_list, key=Project.name) == sorted(new_list, key=Project.name)
+    assert sorted(old_list) == sorted(new_list)
