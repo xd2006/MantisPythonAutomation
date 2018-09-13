@@ -1,8 +1,10 @@
-class SessionHelper:
+from fixture.general import GeneralHelper
+
+
+class SessionHelper(GeneralHelper):
 
     def __init__(self, app):
-        from fixture.application import Application
-        self.app: Application = app
+        super().__init__(app)
 
     def logon(self, username, password):
         wd = self.app.wd
@@ -32,8 +34,11 @@ class SessionHelper:
         return self.get_logged_user() == username
 
 
-    def ensure_logon(self, username, password):
-        wd = self.app.wd
+    def ensure_logon(self, username=None, password=None):
+        if username is None or password is None:
+            username = self.app.user
+            password = self.app.password
+
         if self.is_logged_in():
             if self.is_logged_in_as(username):
                 return

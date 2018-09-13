@@ -1,13 +1,16 @@
 from selenium import webdriver
 
+from fixture.projects import ProjectsHelper
 from fixture.session import SessionHelper
 
 
 class Application:
+    session: SessionHelper
+    projects: ProjectsHelper
     wd: webdriver
 
 
-    def __init__(self, browser, base_url):
+    def __init__(self, browser, config):
         if (browser=="firefox"):
             self.wd = webdriver.Firefox(capabilities={"marionette": False},
                             firefox_binary="C:/Program Files (x86)/Mozilla Firefox ESR/firefox.exe")
@@ -19,7 +22,10 @@ class Application:
             raise ValueError("Unrecognized browser &s" % browser)
         self.wd.implicitly_wait(2)
         self.session = SessionHelper(self)
-        self.base_url = base_url
+        self.projects = ProjectsHelper(self)
+        self.base_url = config['web']['baseUrl']
+        self.user = config['webadmin']['username']
+        self.password = config['webadmin']['password']
 
     def open_home_page(self):
         wd = self.wd
