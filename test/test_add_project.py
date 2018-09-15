@@ -13,11 +13,11 @@ def test_add_project(app: Application):
 
     project = Project(name="Test name {}".format(index), description="Test desc {}".format(index), status=status,
                       view_status=view_status)
-    old_list = app.projects.get_projects_list()
+    old_list = app.soap.get_projects()
 
     app.projects.add_project(project)
 
-    new_list = app.projects.get_projects_list()
+    new_list = app.soap.get_projects()
 
     old_list.append(project)
 
